@@ -1,0 +1,212 @@
+{
+  "info": {
+    "_postman_id": "8b8d4d0c-9d4b-4d3e-a4a7-123456789abc",
+    "name": "Hospital Management API",
+    "description": "CRUD API Collection for Hospital Management System",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Create Patient (Success)",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n    \"patient_name\": \"John Doe\",\n    \"email\": \"john@example.com\",\n    \"phone\": \"9876543210\",\n    \"age\": 30,\n    \"gender\": \"Male\",\n    \"disease\": \"Fever\",\n    \"doctor\": \"Dr. Smith\"\n}"
+        },
+        "url": {
+          "raw": "{{base_url}}/patients",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "patients"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Create Patient (Duplicate Email - Expect 409)",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n    \"patient_name\": \"John Doe\",\n    \"email\": \"john@example.com\",\n    \"phone\": \"9999999999\",\n    \"age\": 32,\n    \"gender\": \"Male\",\n    \"disease\": \"Cold\",\n    \"doctor\": \"Dr. Smith\"\n}"
+        },
+        "url": {
+          "raw": "{{base_url}}/patients",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "patients"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Create Patient (Missing Required Fields - Expect 400)",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n    \"patient_name\": \"\",\n    \"email\": \"\",\n    \"disease\": \"\",\n    \"doctor\": \"\"\n}"
+        },
+        "url": {
+          "raw": "{{base_url}}/patients",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "patients"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Get All Patients (Pagination)",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{base_url}}/patients?page=1&limit=5",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "patients"
+          ],
+          "query": [
+            {
+              "key": "page",
+              "value": "1"
+            },
+            {
+              "key": "limit",
+              "value": "5"
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Get All Patients (Search)",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{base_url}}/patients?search=fever",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "patients"
+          ],
+          "query": [
+            {
+              "key": "search",
+              "value": "fever"
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Get Patient By ID",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{base_url}}/patients/{{patient_id}}",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "patients",
+            "{{patient_id}}"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Update Patient",
+      "request": {
+        "method": "PUT",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n    \"patient_name\": \"John Updated\",\n    \"email\": \"john@example.com\",\n    \"phone\": \"8888888888\",\n    \"age\": 35,\n    \"gender\": \"Male\",\n    \"disease\": \"Migraine\",\n    \"doctor\": \"Dr. Adams\"\n}"
+        },
+        "url": {
+          "raw": "{{base_url}}/patients/{{patient_id}}",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "patients",
+            "{{patient_id}}"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Delete Patient",
+      "request": {
+        "method": "DELETE",
+        "header": [],
+        "url": {
+          "raw": "{{base_url}}/patients/{{patient_id}}",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "patients",
+            "{{patient_id}}"
+          ]
+        }
+      },
+      "response": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "key": "base_url",
+      "value": "http://localhost:5000"
+    },
+    {
+      "key": "patient_id",
+      "value": "1"
+    }
+  ]
+}
